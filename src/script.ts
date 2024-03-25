@@ -7,7 +7,7 @@ if (!code) {
     redirectToAuthCodeFlow(clientId);
 } else {
     const accessToken = await getAccessToken(clientId, code);
-    const profile = await fetchProfile(accessToken);
+    // const profile = await fetchProfile(accessToken);
     const playlist = await fetchPlaylist(accessToken, playlistId);
     // populateUI(profile);
     displayPlaylist(playlist);
@@ -86,7 +86,8 @@ async function fetchPlaylist(token: string, playlist_id: string): Promise<Playli
 }
 
 function displayPlaylist(playlist: Playlist) {
-    // TODO populate playlist object
+    document.getElementById("name")!.innerText = playlist.name;
+    document.getElementById("track 1")!.innerText = playlist.tracks[0].track.name;
 }
 // function populateUI(profile: UserProfile) {
 //     document.getElementById("displayName")!.innerText = profile.display_name;
