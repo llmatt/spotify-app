@@ -1,7 +1,21 @@
 const clientId = "b39f52315e534b6fa9f022f05e72e0ec";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
-const playlistId = 'insert-playlist-id-here';
+const playlistId = '0zS1HHXfrBy8AMjg6Aq6QD';
+
+// class Plist implements Playlist {
+//     collaborative: boolean;
+
+//     constructor(collaborative: boolean, id: string, snapshot_id: string, tracks[]: PlaylistTrackObject;) {
+//     this.collaborative = collaborative;
+//     this.id: string;
+//     this.name: string;
+//     this.snapshot_id: string;
+//     this.tracks: { items: PlaylistTrackObject[]; }
+//     }
+// };
+
+
 
 if (!code) {
     redirectToAuthCodeFlow(clientId);
@@ -9,7 +23,9 @@ if (!code) {
     const accessToken = await getAccessToken(clientId, code);
     // const profile = await fetchProfile(accessToken);
     const playlist = await fetchPlaylist(accessToken, playlistId);
+
     // populateUI(profile);
+
     displayPlaylist(playlist);
 }
 
@@ -69,14 +85,13 @@ export async function getAccessToken(clientId: string, code: string): Promise<st
     return access_token;
 }
 
-async function fetchProfile(token: string): Promise<UserProfile> {
-    const result = await fetch("https://api.spotify.com/v1/me", {
-        method: "GET", headers: { Authorization: `Bearer ${token}` }
-    });
+// async function fetchProfile(token: string): Promise<UserProfile> {
+//     const result = await fetch("https://api.spotify.com/v1/me", {
+//         method: "GET", headers: { Authorization: `Bearer ${token}` }
+//     });
 
-    return await result.json();
-}
-
+//     return await result.json();
+// }
 async function fetchPlaylist(token: string, playlist_id: string): Promise<Playlist> {
     const result = await fetch(`https://api.spotify.com/v1/me/playlists/${playlist_id}`, {
         method: "GET", headers: { Authorization: `Bearer ${token}`}
@@ -85,9 +100,9 @@ async function fetchPlaylist(token: string, playlist_id: string): Promise<Playli
     return await result.json();
 }
 
-function displayPlaylist(playlist: Playlist) {
-    document.getElementById("name")!.innerText = playlist.name;
-    document.getElementById("track 1")!.innerText = playlist.tracks[0].track.name;
+async function displayPlaylist(playlist: Playlist) {
+        document.getElementById("num_tracks")!.innerText = String(playlist.tracks.items.length);
+        document.getElementById("name")!.innerText = playlist.name;
 }
 // function populateUI(profile: UserProfile) {
 //     document.getElementById("displayName")!.innerText = profile.display_name;
