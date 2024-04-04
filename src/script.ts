@@ -21,12 +21,13 @@ if (!code) {
     redirectToAuthCodeFlow(clientId);
 } else {
     const accessToken = await getAccessToken(clientId, code);
-    // const profile = await fetchProfile(accessToken);
+    const profile = await fetchProfile(accessToken);
     const playlist = await fetchPlaylist(accessToken, playlistId);
 
     // populateUI(profile);
 
-    displayPlaylist(playlist);
+ //   displayPlaylist(playlist);
+    populateUI(profile, playlist);
 }
 
 export async function redirectToAuthCodeFlow(clientId: string) {
@@ -85,13 +86,13 @@ export async function getAccessToken(clientId: string, code: string): Promise<st
     return access_token;
 }
 
-// async function fetchProfile(token: string): Promise<UserProfile> {
-//     const result = await fetch("https://api.spotify.com/v1/me", {
-//         method: "GET", headers: { Authorization: `Bearer ${token}` }
-//     });
+async function fetchProfile(token: string): Promise<UserProfile> {
+     const result = await fetch("https://api.spotify.com/v1/me", {
+         method: "GET", headers: { Authorization: `Bearer ${token}` }
+     });
 
-//     return await result.json();
-// }
+     return await result.json();
+}
 async function fetchPlaylist(token: string, playlist_id: string): Promise<Playlist> {
     const result = await fetch(`https://api.spotify.com/v1/me/playlists/${playlist_id}`, {
         method: "GET", headers: { Authorization: `Bearer ${token}`}
@@ -100,12 +101,10 @@ async function fetchPlaylist(token: string, playlist_id: string): Promise<Playli
     return await result.json();
 }
 
-async function displayPlaylist(playlist: Playlist) {
+function populateUI(profile: UserProfile, playlist: Playlist) {
+        document.getElementById("user_name")!.innerText = profile.display_name;
         document.getElementById("num_tracks")!.innerText = String(playlist.tracks.items.length);
-        document.getElementById("name")!.innerText = playlist.name;
-}
-// function populateUI(profile: UserProfile) {
-//     document.getElementById("displayName")!.innerText = profile.display_name;
+        document.getElementById("playlist_name")!.innerText = 'name of the playlist';//playlist.name;
 //     if (profile.images[0]) {
 //         const profileImage = new Image(200, 200);
 //         profileImage.src = profile.images[0].url;
@@ -118,4 +117,4 @@ async function displayPlaylist(playlist: Playlist) {
 //     document.getElementById("url")!.innerText = profile.href;
 //     document.getElementById("url")!.setAttribute("href", profile.href);
 //     document.getElementById("imgUrl")!.innerText = profile.images[0]?.url ?? '(no profile image)';
-// } 
+} 

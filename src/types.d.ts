@@ -18,7 +18,23 @@ interface UserProfile {
 
 interface Playlist {
     collaborative: boolean;
+    description: string;
+    external_urls: {
+        spotify: string
+    },
+    followers: {
+        href: string,
+        total: 0
+    },
+    href: string,
     id: string;
+    images: [
+        {
+            url: string,
+            height: number,
+            width: number,
+        }
+    ],
     name: string;
     snapshot_id: string;
     tracks: { items: PlaylistTrackObject[]; };
