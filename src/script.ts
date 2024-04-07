@@ -104,9 +104,9 @@ async function fetchPlaylist(token: string, playlist_id: string): Promise<Playli
 
 function populateUI(profile: UserProfile, playlist: Playlist) {
     document.getElementById("playlist_name")!.innerText = playlist.name;    
-    document.getElementById("user_name")!.innerText = profile.display_name;
     document.getElementById("num_tracks")!.innerText = String(playlist.tracks.items.length);
-        
+    document.getElementById("user_name")!.innerText = profile.display_name;
+            
 //     if (profile.images[0]) {
 //         const profileImage = new Image(200, 200);
 //         profileImage.src = profile.images[0].url;
