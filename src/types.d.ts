@@ -46,7 +46,7 @@ interface Playlist {
         },
         href: string,
         id: string,
-        type: UserProfile,
+        type: string,
         uri: string,
         display_name: string,
     }
