@@ -40,7 +40,7 @@ export async function redirectToAuthCodeFlow(clientId: string) {
     params.append("client_id", clientId);
     params.append("response_type", "code");
     params.append("redirect_uri", "http://localhost:5173/callback");
-    params.append("scope", "user-read-private user-read-email playlist-read-private");
+    params.append("scope", "user-read-private user-read-email");
 
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
@@ -104,9 +104,8 @@ async function fetchPlaylist(token: string, playlist_id: string): Promise<Playli
 
 function populateUI(profile: UserProfile, playlist: Playlist) {
     document.getElementById("playlist_name")!.innerText = playlist.name;    
-    document.getElementById("num_tracks")!.innerText = String(playlist.tracks.items.length);
-    document.getElementById("user_name")!.innerText = profile.display_name;
-            
+ // document.getElementById("num_tracks")!.innerText = String(playlist.tracks.items.length);
+    document.getElementById("user_name")!.innerText = profile.display_name;           
 //     if (profile.images[0]) {
 //         const profileImage = new Image(200, 200);
 //         profileImage.src = profile.images[0].url;

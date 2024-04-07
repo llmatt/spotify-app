@@ -168,7 +168,7 @@ interface Playlist {
                     is_local: boolean,
                     }
                 }
-        ]
+            ]
     },
     type: string,
     uri: string,
